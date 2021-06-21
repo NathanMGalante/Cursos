@@ -1,0 +1,5 @@
+package br.com.nathanmg.forum.controller;
+
+public class ForumController {
+
+}
