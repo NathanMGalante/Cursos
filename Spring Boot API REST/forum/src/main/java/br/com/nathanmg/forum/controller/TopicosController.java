@@ -1,13 +1,16 @@
 package br.com.nathanmg.forum.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.nathanmg.forum.controller.dto.TopicoDto;
 import br.com.nathanmg.forum.controller.form.TopicoForm;
@@ -38,8 +41,11 @@ public class TopicosController {
 	}
 	
 	@PostMapping
-	public void cadastrar(@RequestBody TopicoForm form) {//como é um metodo post, o @RequestBody indica que não é para pegar na url e sim no corpo da requisição
+	public ResponseEntity<TopicoDto> cadastrar(@RequestBody TopicoForm form, UriComponentsBuilder uriBuilder) {//como é um metodo post, o @RequestBody indica que não é para pegar na url e sim no corpo da requisição
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
+		
+		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
+		return ResponseEntity.created(uri).body(new TopicoDto(topico));
 	}
 }
