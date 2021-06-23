@@ -34,9 +34,9 @@ public class Topico {
 	@OneToMany(mappedBy = "topico")	//para não achar que é um novo mapeamento
 	private List<Resposta> respostas = new ArrayList<>();
 
-	/*public Topico() {
+	public Topico() {
 		
-	}*/
+	}
 	
 	
 	
