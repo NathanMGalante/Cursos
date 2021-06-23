@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,6 +62,8 @@ public class TopicosController {
 	}
 	
 	@PostMapping
+	@Transactional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {//como é um metodo post, o @RequestBody indica que não é para pegar na url e sim no corpo da requisição
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
@@ -71,6 +74,7 @@ public class TopicosController {
 	
 	@GetMapping("/{id}")
 	@Transactional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDetalhesDto> detalhar(@PathVariable Long id) {
 		Optional<Topico> topico = topicoRepository.findById(id);
 		if(topico.isPresent())
@@ -81,6 +85,7 @@ public class TopicosController {
 	
 	@PutMapping("/{id}")	// PUT é para atualizar todo o conteudo e o PATCH é para atualizar apenas alguns campos
 	@Transactional	//Efetuar o commit automático da transação, caso não ocorra uma exception e Executar o método dentro de um contexto transacional
+	@CacheEvict(value = "listaDeTopicos", allEntries = true)
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicoForm form) {
 		Optional<Topico> verify = topicoRepository.findById(id);
 		if(verify.isPresent()) {
