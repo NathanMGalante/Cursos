@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,7 @@ public class TopicosController {
 	private CursoRepository cursoRepository;
 	
 	@GetMapping				//O RequestParam indica que é um parametro da url
+	@Cacheable(value = "listaDeTopicos")
 	public Page<TopicoDto> Lista(
 	@PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) @RequestParam(required = false) String nomeCurso,
 	Pageable paginacao){
