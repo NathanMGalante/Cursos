@@ -63,7 +63,7 @@ public class TopicosController {
 	}
 	
 	@PutMapping("/{id}")	// PUT é para atualizar todo o conteudo e o PATCH é para atualizar apenas alguns campos
-	@Transactional	//Para no final atualizar o banco de dados
+	@Transactional	//Efetuar o commit automático da transação, caso não ocorra uma exception e Executar o método dentro de um contexto transacional
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicoForm form) {
 		Topico topico = form.atualizar(id, topicoRepository);
 		
