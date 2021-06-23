@@ -2,6 +2,7 @@ package br.com.nathanmg.forum.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -59,23 +60,35 @@ public class TopicosController {
 	
 	@GetMapping("/{id}")
 	@Transactional
-	public TopicoDetalhesDto detalhar(@PathVariable Long id) {
-		Topico topico = topicoRepository.getOne(id);
-		return new TopicoDetalhesDto(topico);
+	public ResponseEntity<TopicoDetalhesDto> detalhar(@PathVariable Long id) {
+		Optional<Topico> topico = topicoRepository.findById(id);
+		if(topico.isPresent())
+			return ResponseEntity.ok(new TopicoDetalhesDto(topico.get()));
+		else
+			return ResponseEntity.notFound().build();
 	}
 	
 	@PutMapping("/{id}")	// PUT é para atualizar todo o conteudo e o PATCH é para atualizar apenas alguns campos
 	@Transactional	//Efetuar o commit automático da transação, caso não ocorra uma exception e Executar o método dentro de um contexto transacional
 	public ResponseEntity<TopicoDto> atualizar(@PathVariable Long id, @RequestBody @Valid AtualizarTopicoForm form) {
-		Topico topico = form.atualizar(id, topicoRepository);
-		
-		return ResponseEntity.ok(new TopicoDto(topico));
+		Optional<Topico> verify = topicoRepository.findById(id);
+		if(verify.isPresent()) {
+			Topico topico = form.atualizar(id, topicoRepository);
+			return ResponseEntity.ok(new TopicoDto(topico));
+		}
+		else
+			return ResponseEntity.notFound().build();
 	}
 	
 	@DeleteMapping("/{id}")										//deletar com base no id;
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable Long id){	//receber o id como parametro
-		topicoRepository.deleteById(id);						//excluir do banco de dados
-		return ResponseEntity.ok().build();						//devolve como 200.
+		Optional<Topico> verify = topicoRepository.findById(id);
+		if(verify.isPresent()) {
+			topicoRepository.deleteById(id);
+			return ResponseEntity.ok().build();
+		}
+		else
+			return ResponseEntity.notFound().build();
 	}
 }
