@@ -16,12 +16,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 
 	@Autowired
-	private AutentificationService autentificationService;
+	private AuthenticationService authenticationService;
 	
 	//configurações de autentificação, como acesso, login,...
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(autentificationService).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(authenticationService).passwordEncoder(new BCryptPasswordEncoder());
 		//super.configure(auth);
 	}
 	
@@ -41,7 +41,8 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		// TODO Auto-generated method stub
 		//super.configure(web);
 	}
-	public static void main(String[] args) {
-		System.out.println(new BCryptPasswordEncoder().encode("123456"));
-	}
+	
+//	public static void main(String[] args) {
+//		System.out.println(new BCryptPasswordEncoder().encode("123456"));
+//	}
 }

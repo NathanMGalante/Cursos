@@ -12,7 +12,7 @@ import br.com.nathanmg.forum.modelo.Usuario;
 import br.com.nathanmg.forum.repository.UsuarioRepository;
 
 @Service
-public class AutentificationService implements UserDetailsService {
+public class AuthenticationService implements UserDetailsService {
 
 	@Autowired
 	private UsuarioRepository repository;
