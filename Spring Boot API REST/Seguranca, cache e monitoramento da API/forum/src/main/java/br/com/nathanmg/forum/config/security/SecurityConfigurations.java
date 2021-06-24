@@ -22,6 +22,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private AuthenticationService authenticationService;
 	
+	@Autowired
+	private TokenService tokenService;
+	
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
@@ -46,7 +49,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		//.and().formLogin();//faz com que o string gere um formulario de autentificação. removido pois ele cria um formulario de login com sessão
 		.and().csrf().disable()//desabilitar para o spring security não fazer a verificação do token do csrf, pois ja iremos adicionar o proprio token
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().addFilterBefore(new AuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
+		.and().addFilterBefore(new AuthenticationTokenFilter(tokenService), UsernamePasswordAuthenticationFilter.class)
 		;
 	}
 	
