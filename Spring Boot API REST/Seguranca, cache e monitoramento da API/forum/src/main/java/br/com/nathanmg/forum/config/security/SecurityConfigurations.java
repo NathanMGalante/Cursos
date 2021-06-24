@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
@@ -45,6 +46,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 		//.and().formLogin();//faz com que o string gere um formulario de autentificação. removido pois ele cria um formulario de login com sessão
 		.and().csrf().disable()//desabilitar para o spring security não fazer a verificação do token do csrf, pois ja iremos adicionar o proprio token
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+		.and().addFilterBefore(new AuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
 		;
 	}
 	
