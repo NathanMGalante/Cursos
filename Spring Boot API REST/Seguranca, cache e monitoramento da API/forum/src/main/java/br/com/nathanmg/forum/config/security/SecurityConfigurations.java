@@ -24,7 +24,9 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers(HttpMethod.GET, "/topicos").permitAll()
-		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll();
+		.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
+		.anyRequest().authenticated()//toda requisição tem que estar autentificada.
+		.and().formLogin();//faz com que o string gere um formulario de autentificação.
 	}
 	
 	//configurações de recursos estaticos, como js, css, imagens,...
