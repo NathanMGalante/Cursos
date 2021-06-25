@@ -65,10 +65,17 @@
 		    <artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 		
+		<!-- DEPENDENCIA PARA geração de token -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>0.9.1</version>
+		</dependency>
+		
+		<!-- Dependencia que devolve informações sobre a aplicação -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 
