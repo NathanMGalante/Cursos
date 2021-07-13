@@ -13,6 +13,55 @@ class ByteBankApp extends StatelessWidget {
   }
 }
 
+class TransferList extends StatelessWidget {
+  final List<Transfer> _transfers = [];
+
+  @override
+  Widget build(BuildContext context) {
+    _transfers.add(Transfer(10000, 100.0));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Transferências'),
+      ),
+      body: ListView.builder(
+        itemCount: _transfers.length,
+        itemBuilder: (context, index) {
+          final transfer = _transfers[index];
+          return TransferItem(transfer);
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          final Future<Transfer> future = Navigator.push(
+              context, MaterialPageRoute(builder: (context) => TransferForm()));
+          future.then((transferReceived) {
+            debugPrint('$transferReceived');
+            _transfers.add(transferReceived);
+          });
+        },
+      ),
+    );
+  }
+}
+
+class TransferItem extends StatelessWidget {
+  Transfer _transfer;
+
+  TransferItem(this._transfer);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.monetization_on),
+        title: Text(_transfer.accountNumber.toString()),
+        subtitle: Text(_transfer.value.toString()),
+      ),
+    );
+  }
+}
+
 class TransferForm extends StatelessWidget {
   final TextEditingController _controllerFieldNumberAccount =
       TextEditingController();
@@ -26,31 +75,48 @@ class TransferForm extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Editor(controller: _controllerFieldNumberAccount, label: 'Número da conta', tip: '000'),
-          Editor(controller: _controllerFieldValue, label: 'Valor', tip: '0,00',icon: Icons.monetization_on),
+          Editor(
+              controller: _controllerFieldNumberAccount,
+              label: 'Número da conta',
+              tip: '000'),
+          Editor(
+              controller: _controllerFieldValue,
+              label: 'Valor',
+              tip: '0,00',
+              icon: Icons.monetization_on),
           ElevatedButton(
             child: Text('Confirmar'),
-            onPressed: () => _transferCreate(context: context),
+            onPressed: () => _transferCreate(context),
           ),
         ],
       ),
     );
   }
 
-  void _transferCreate({BuildContext context}) {
-    final int numberAccount =
-        int.tryParse(_controllerFieldNumberAccount.text);
-    final double valueAccount =
-        double.tryParse(_controllerFieldValue.text);
+  void _transferCreate(BuildContext context) {
+    final int numberAccount = int.tryParse(_controllerFieldNumberAccount.text);
+    final double valueAccount = double.tryParse(_controllerFieldValue.text);
     if (numberAccount != null && valueAccount != null) {
       final transferCreated = Transfer(numberAccount, valueAccount);
-      Navigator.pop(context, transferCreated);//push coloca a transferencia e o pop tira a transferencia
+      Navigator.pop(context,
+          transferCreated); // push coloca a transferencia e o pop tira a transferencia
     }
   }
 }
 
+class Transfer {
+  final int accountNumber;
+  final double value;
+
+  Transfer(this.accountNumber, this.value);
+
+  @override
+  String toString() {
+    return 'Transfer{accountNumber: $accountNumber, value: $value}';
+  }
+}
+
 class Editor extends StatelessWidget {
-  
   final TextEditingController controller;
   final String label;
   final String tip;
@@ -76,58 +142,4 @@ class Editor extends StatelessWidget {
       ),
     );
   }
-}
-
-class TransferList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Transferências'),
-      ),
-      body: Column(
-        children: [
-          TransferItem(Transfer(111, 110.00)),
-          TransferItem(Transfer(222, 200)),
-          TransferItem(Transfer(333, 450)),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () {
-          final Future<Transfer> future = Navigator.push(context, MaterialPageRoute(builder: (context) => TransferForm()));
-          future.then((value) => debugPrint('$value'));
-          },
-      ),
-    );
-  }
-}
-
-class TransferItem extends StatelessWidget {
-  Transfer _transfer;
-
-  TransferItem(this._transfer);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(Icons.monetization_on),
-        title: Text(_transfer.accountNumber.toString()),
-        subtitle: Text(_transfer.value.toString()),
-      ),
-    );
-  }
-}
-
-class Transfer {
-  final int accountNumber;
-  final double value;
-
-  @override
-  String toString() {
-    return 'Transfer{accountNumber: $accountNumber, value: $value}';
-  }
-
-  Transfer(this.accountNumber, this.value);
 }
