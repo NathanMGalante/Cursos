@@ -6,7 +6,7 @@ void main() => runApp(ByteBankApp());
 class ByteBankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: TransferList(),
+        home: Dashboard(),
         theme: ThemeData(
           primaryColor: Colors.teal[800],
           accentColor: Colors.tealAccent[700],
@@ -17,4 +17,13 @@ class ByteBankApp extends StatelessWidget {
           )),
         ),
       );
+}
+
+class Dashboard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Dashboard')),
+    );
+  }
 }
