@@ -13,35 +13,46 @@ class ByteBankApp extends StatelessWidget {
   }
 }
 
-class TransferList extends StatelessWidget {
+class TransferList extends StatefulWidget {
   final List<Transfer> _transfers = [];
 
   @override
+  State<StatefulWidget> createState() {
+    return TransferListState();
+  }
+}
+
+class TransferListState extends State<TransferList> {
+  @override
   Widget build(BuildContext context) {
-    _transfers.add(Transfer(10000, 100.0));
+    // widget é usado para acessar o _transfers da classe pai
     return Scaffold(
       appBar: AppBar(
         title: Text('Transferências'),
       ),
       body: ListView.builder(
-        itemCount: _transfers.length,
+        itemCount: widget._transfers.length,
         itemBuilder: (context, index) {
-          final transfer = _transfers[index];
+          final transfer = widget._transfers[index];
           return TransferItem(transfer);
         },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          final Future<Transfer> future = Navigator.push(
-              context, MaterialPageRoute(builder: (context) => TransferForm()));
-          future.then((transferReceived) {
-            debugPrint('$transferReceived');
-            _transfers.add(transferReceived);
-          });
+          final Future<Transfer> future =
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return TransferForm();
+          }));
+          future.then((transferReceived) => _update(transferReceived));
         },
       ),
     );
+  }
+
+  _update(Transfer transferReceived) {
+    if (transferReceived != null)
+      setState(() => widget._transfers.add(transferReceived));
   }
 }
 
