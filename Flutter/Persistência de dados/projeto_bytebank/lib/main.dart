@@ -24,6 +24,22 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Dashboard')),
+      body: Column(
+        children: [
+          Image.asset('images/bytebank_logo.png'),
+          Container(
+            width: 100,
+            height: 100,
+            color: Colors.teal[800],
+            child: Column(
+              children: [
+                Icon(Icons.people),
+                Text('Contacts'),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
