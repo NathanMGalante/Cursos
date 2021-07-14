@@ -39,7 +39,7 @@ class _ContactsFormState extends State<ContactsForm> {
                   final String name = _controllerName.text;
                   final int accountNumber =
                       int.tryParse(_controllerAccountNumber.text);
-                  final Contact newContact = new Contact(name, accountNumber);
+                  final Contact newContact = new Contact(0, name, accountNumber);
                   Navigator.pop(context, newContact);
                 },
                 child: Text(button_create),
