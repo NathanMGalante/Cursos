@@ -7,7 +7,7 @@ void main() => runApp(ByteBankApp());
 class ByteBankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: ContactsForm(),
+        home: Dashboard(),
         theme: ThemeData(
           primaryColor: Colors.teal[900],
           accentColor: Colors.tealAccent[700],
