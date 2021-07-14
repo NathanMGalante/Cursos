@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_bytebank/screens/contacts/form.dart';
 import 'package:projeto_bytebank/screens/dashboard.dart';
 
 void main() => runApp(ByteBankApp());
@@ -6,7 +7,7 @@ void main() => runApp(ByteBankApp());
 class ByteBankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: Dashboard(),
+        home: ContactsForm(),
         theme: ThemeData(
           primaryColor: Colors.teal[900],
           accentColor: Colors.tealAccent[700],
