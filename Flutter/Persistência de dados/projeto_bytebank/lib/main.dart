@@ -8,7 +8,7 @@ class ByteBankApp extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         home: Dashboard(),
         theme: ThemeData(
-          primaryColor: Colors.teal[800],
+          primaryColor: Colors.teal[900],
           accentColor: Colors.tealAccent[700],
           elevatedButtonTheme: ElevatedButtonThemeData(
               style: TextButton.styleFrom(
@@ -21,25 +21,44 @@ class ByteBankApp extends StatelessWidget {
 
 class Dashboard extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(title: Text('Dashboard')),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('images/bytebank_logo.png'),
-          Container(
-            width: 100,
-            height: 100,
-            color: Colors.teal[800],
-            child: Column(
-              children: [
-                Icon(Icons.people),
-                Text('Contacts'),
-              ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Image.asset('images/bytebank_logo.png'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              width: 150,
+              height: 100,
+              padding: EdgeInsets.all(8.0),
+              color: Theme.of(context).primaryColor,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.people,
+                    color: Colors.white,
+                    size: 32.0,
+                  ),
+                  Text(
+                    'Contacts',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
-  }
 }
