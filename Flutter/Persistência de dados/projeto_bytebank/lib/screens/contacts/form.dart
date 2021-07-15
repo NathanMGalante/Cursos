@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_bytebank/components/editor.dart';
 import 'package:projeto_bytebank/components/variables.dart';
-import 'package:projeto_bytebank/database/app_database.dart';
+import 'package:projeto_bytebank/database/dao/contact_dao.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 
 class ContactsForm extends StatefulWidget {
@@ -16,6 +16,7 @@ class _ContactsFormState extends State<ContactsForm> {
     final TextEditingController _controllerName = TextEditingController();
     final TextEditingController _controllerAccountNumber =
         TextEditingController();
+    final ContactDao _dao = ContactDao();
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +42,7 @@ class _ContactsFormState extends State<ContactsForm> {
                   final int accountNumber =
                       int.tryParse(_controllerAccountNumber.text);
                   final Contact newContact = Contact(0, name, accountNumber);
-                  save(newContact).then((id) => Navigator.pop(context));
+                  _dao.save(newContact).then((id) => Navigator.pop(context));
                 },
                 child: Text(button_create),
               ),
