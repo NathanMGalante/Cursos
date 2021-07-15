@@ -15,7 +15,7 @@ class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Contacts'),
+          title: Text('Transfers'),
         ),
         body: FutureBuilder<List<Contact>>(
           initialData: [],
@@ -25,7 +25,7 @@ class _ContactsListState extends State<ContactsList> {
               case ConnectionState.none:
                 break;
               case ConnectionState.waiting:
-                return Loading();
+                return Loading(message: 'Carregando...',);
                 break;
               case ConnectionState.active:
                 // retorna pedaços, como exemplo um download,

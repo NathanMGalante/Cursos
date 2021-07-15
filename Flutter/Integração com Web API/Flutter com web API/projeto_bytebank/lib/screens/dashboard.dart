@@ -13,10 +13,10 @@ class Dashboard extends StatelessWidget {
           children: [
             Logo(),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CardBox('Contacts', Icons.people),
-                CardBox('Transfers', Icons.compare_arrows),
+                _FeatureItem('Transfers', Icons.monetization_on),
+                _FeatureItem('Transaction Feed', Icons.description),
               ],
             )
           ],
@@ -34,11 +34,11 @@ class Logo extends StatelessWidget {
   }
 }
 
-class CardBox extends StatelessWidget {
-  final String _text;
+class _FeatureItem extends StatelessWidget {
+  final String _name;
   final IconData _icon;
 
-  CardBox(this._text, this._icon);
+  _FeatureItem(this._name, this._icon);
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +49,9 @@ class CardBox extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              switch (_text) {
-                case 'Contacts':
-                  return ContactsList();
-                  break;
+              switch (_name) {
                 case 'Transfers':
-                  return TransferList();
+                  return ContactsList();
                   break;
                 default:
                   return Container(color: Colors.white, child: Loading());
@@ -75,7 +72,7 @@ class CardBox extends StatelessWidget {
                   size: 32.0,
                 ),
                 Text(
-                  _text,
+                  _name,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
