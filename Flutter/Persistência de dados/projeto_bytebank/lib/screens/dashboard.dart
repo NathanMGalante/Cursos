@@ -48,14 +48,15 @@ class CardBox extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              switch (_text) {
-                case 'Contacts':
-                  return ContactsList();
-                  break;
-                case 'Transfers':
-                  return TransferList();
-                  break;
-              }
+              return ContactsList();
+              // switch (_text) {
+              //   case 'Contacts':
+              //     return ContactsList();
+              //     break;
+              //   case 'Transfers':
+              //     return TransferList();
+              //     break;
+              // }
             }));
           },
           child: Container(
