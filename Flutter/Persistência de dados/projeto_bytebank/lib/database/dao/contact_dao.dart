@@ -20,6 +20,17 @@ class ContactDao {
     return db.insert(_tableName, contactMap);
   }
 
+  Future<int> update(Contact contact) async {
+    final Database db = await getDatabase();
+    Map<String, dynamic> contactMap = _toMap(contact);
+    return db.update(
+        _tableName,
+        contactMap,
+        where: '$_id = ?',
+      whereArgs: [contact.id],
+    );
+  }
+
   Map<String, dynamic> _toMap(Contact contact) {
     final Map<String, dynamic> contactMap = Map();
     contactMap[_name] = contact.name;
@@ -44,5 +55,14 @@ class ContactDao {
       contacts.add(contact);
     }
     return contacts;
+  }
+
+  Future<int> delete(int id) async {
+    final Database db = await getDatabase();
+    return db.delete(
+      _tableName,
+      where: 'id = ?',
+      whereArgs: [id],
+    );
   }
 }
