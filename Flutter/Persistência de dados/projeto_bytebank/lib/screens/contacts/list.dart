@@ -4,7 +4,12 @@ import 'package:projeto_bytebank/database/app_database.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 import 'package:projeto_bytebank/screens/contacts/form.dart';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
+  @override
+  _ContactsListState createState() => _ContactsListState();
+}
+
+class _ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -39,11 +44,15 @@ class ContactsList extends StatelessWidget {
           },
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => ContactsForm()))
-              .then(
-                (newContact) => debugPrint(newContact.toString()),
-              ),
+          onPressed: () {
+            Navigator.of(context)
+                .push(
+                  MaterialPageRoute(
+                    builder: (context) => ContactsForm(),
+                  ),
+                )
+                .then((value) => setState(() {}));
+          },
           child: Icon(Icons.add),
         ),
       );

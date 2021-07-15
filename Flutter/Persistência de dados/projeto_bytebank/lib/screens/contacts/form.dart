@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:projeto_bytebank/components/editor.dart';
 import 'package:projeto_bytebank/components/variables.dart';
+import 'package:projeto_bytebank/database/app_database.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 
 class ContactsForm extends StatefulWidget {
@@ -39,8 +40,8 @@ class _ContactsFormState extends State<ContactsForm> {
                   final String name = _controllerName.text;
                   final int accountNumber =
                       int.tryParse(_controllerAccountNumber.text);
-                  final Contact newContact = new Contact(0, name, accountNumber);
-                  Navigator.pop(context, newContact);
+                  final Contact newContact = Contact(0, name, accountNumber);
+                  save(newContact).then((id) => Navigator.pop(context));
                 },
                 child: Text(button_create),
               ),
