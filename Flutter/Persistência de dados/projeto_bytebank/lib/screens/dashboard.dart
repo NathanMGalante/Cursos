@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_bytebank/components/editor.dart';
 import 'package:projeto_bytebank/screens/contacts/list.dart';
 import 'package:projeto_bytebank/screens/transfers/list.dart';
 
@@ -48,15 +49,16 @@ class CardBox extends StatelessWidget {
         child: InkWell(
           onTap: () {
             Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return ContactsList();
-              // switch (_text) {
-              //   case 'Contacts':
-              //     return ContactsList();
-              //     break;
-              //   case 'Transfers':
-              //     return TransferList();
-              //     break;
-              // }
+              switch (_text) {
+                case 'Contacts':
+                  return ContactsList();
+                  break;
+                case 'Transfers':
+                  return TransferList();
+                  break;
+                default:
+                  return Container(color: Colors.white, child: Loading());
+              }
             }));
           },
           child: Container(

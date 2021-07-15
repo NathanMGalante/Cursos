@@ -27,3 +27,18 @@ class Editor extends StatelessWidget {
     );
   }
 }
+
+class Loading extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircularProgressIndicator(),
+          Text('Carregando...')
+        ],
+      ),
+    );
+}
+
