@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_bytebank/components/editor.dart';
 import 'package:projeto_bytebank/screens/contacts/list.dart';
-import 'package:projeto_bytebank/screens/transfers/list.dart';
 
 class Dashboard extends StatelessWidget {
   @override
@@ -12,12 +10,27 @@ class Dashboard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Logo(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _FeatureItem('Transfers', Icons.monetization_on),
-                _FeatureItem('Transaction Feed', Icons.description),
-              ],
+            Container(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  _FeatureItem(
+                    'Transfers',
+                    Icons.monetization_on,
+                    onClick: () => _showContactsList(context),
+                  ),
+                  _FeatureItem(
+                    'Transaction Feed',
+                    Icons.description,
+                    onClick: () => print('transaction feed'),
+                  ), _FeatureItem(
+                    'Transaction Feed',
+                    Icons.description,
+                    onClick: () => print('transaction feed'),
+                  ),
+                ],
+              ),
             )
           ],
         ),
@@ -37,8 +50,9 @@ class Logo extends StatelessWidget {
 class _FeatureItem extends StatelessWidget {
   final String _name;
   final IconData _icon;
+  final Function onClick;
 
-  _FeatureItem(this._name, this._icon);
+  _FeatureItem(this._name, this._icon, {@required this.onClick});
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +61,9 @@ class _FeatureItem extends StatelessWidget {
       child: Material(
         color: Theme.of(context).primaryColor,
         child: InkWell(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              switch (_name) {
-                case 'Transfers':
-                  return ContactsList();
-                  break;
-                default:
-                  return Container(color: Colors.white, child: Loading());
-              }
-            }));
-          },
+          onTap: () => onClick(),
           child: Container(
             width: 150,
-            height: 100,
             padding: EdgeInsets.all(8.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,3 +89,6 @@ class _FeatureItem extends StatelessWidget {
     );
   }
 }
+
+void _showContactsList(BuildContext context) => Navigator.of(context)
+      .push(MaterialPageRoute(builder: (context) => ContactsList()));
