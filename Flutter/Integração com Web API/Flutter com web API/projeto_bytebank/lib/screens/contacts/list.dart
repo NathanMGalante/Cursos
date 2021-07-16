@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_bytebank/components/editor.dart';
+import 'package:projeto_bytebank/components/loading.dart';
 import 'package:projeto_bytebank/database/dao/contact_dao.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 import 'package:projeto_bytebank/screens/contacts/form.dart';
@@ -25,7 +25,9 @@ class _ContactsListState extends State<ContactsList> {
               case ConnectionState.none:
                 break;
               case ConnectionState.waiting:
-                return Loading(message: 'Carregando...',);
+                return Loading(
+                  message: 'Carregando...',
+                );
                 break;
               case ConnectionState.active:
                 // retorna pedaços, como exemplo um download,
