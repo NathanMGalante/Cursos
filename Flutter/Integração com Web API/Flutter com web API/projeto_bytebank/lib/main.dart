@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_bytebank/http/web_client.dart';
 import 'package:projeto_bytebank/screens/dashboard.dart';
 
 void main() {
   runApp(ByteBankApp());
+  findAll();
   //save(Contact(0, 'Nathan', 12345678)).then((id) {
   //   findAll().then((contacts) {
   //     debugPrint(contacts.toString());
