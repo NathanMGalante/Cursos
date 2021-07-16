@@ -33,7 +33,9 @@ class TransactionsList extends StatelessWidget {
                 if (transactions.isNotEmpty) {
                   return ListView.builder(
                     itemBuilder: (context, index) {
-                      final Transaction transaction = transactions[index];
+                      final int reverseIndex = transactions.length - 1 - index;
+                      final Transaction transaction =
+                          transactions[reverseIndex];
                       return Card(
                         child: ListTile(
                           leading: Icon(Icons.monetization_on),
