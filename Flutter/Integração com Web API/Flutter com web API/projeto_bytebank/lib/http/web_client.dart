@@ -58,7 +58,7 @@ Future<Transaction> save(Transaction transaction) async {
     'value': transaction.value,
     'contact': {
       'name': transaction.contact.name,
-      'accountNumer': transaction.contact.accountNumber,
+      'accountNumber': transaction.contact.accountNumber,
     }
   };
   final String transactionJson = jsonEncode(transactionMap);
