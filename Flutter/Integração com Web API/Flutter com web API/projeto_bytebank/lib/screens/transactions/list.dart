@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_bytebank/models/Transaction.dart';
-import 'package:projeto_bytebank/models/contact.dart';
 
 class TransactionsList extends StatelessWidget {
   final List<Transaction> transactions = [];
