@@ -5,6 +5,11 @@ import 'package:http_interceptor/http_interceptor.dart';
 import 'package:projeto_bytebank/models/Transaction.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 
+final Client client = InterceptedClient.build(
+  interceptors: [LoggingInterceptor()],
+);
+final Uri _url = Uri.http('192.168.15.22:8080', 'transactions');
+
 class LoggingInterceptor implements InterceptorContract {
   @override
   Future<RequestData> interceptRequest({RequestData data}) async {
@@ -26,12 +31,11 @@ class LoggingInterceptor implements InterceptorContract {
 }
 
 Future<List<Transaction>> findAll() async {
-  final Client client = InterceptedClient.build(
-    interceptors: [LoggingInterceptor()],
-  );
-  final Response response = await client.get(
-    Uri.http('192.168.15.22:8080', 'transactions'),
-  ).timeout(Duration(seconds: 10));
+  final Response response = await client
+      .get(
+        _url,
+      )
+      .timeout(Duration(seconds: 10));
   final List<dynamic> decodeJson = jsonDecode(response.body);
   final List<Transaction> transactions = [];
   for (Map<String, dynamic> transactionJson in decodeJson) {
@@ -47,4 +51,33 @@ Future<List<Transaction>> findAll() async {
     transactions.add(transaction);
   }
   return transactions;
+}
+
+Future<Transaction> save(Transaction transaction) async {
+  final Map<String, dynamic> transactionMap = {
+    'value': transaction.value,
+    'contact': {
+      'name': transaction.contact.name,
+      'accountNumer': transaction.contact.accountNumber,
+    }
+  };
+  final String transactionJson = jsonEncode(transactionMap);
+
+  final Response response = await client.post(
+    _url,
+    headers: {'Content-Type': 'application/json', 'password': '1000'},
+    body: transactionJson,
+  );
+
+  final Map<String, dynamic> json = jsonDecode(response.body);
+
+  final Map<String, dynamic> contactJson = json['contact'];
+  return Transaction(
+    json['value'],
+    Contact(
+      0,
+      contactJson['name'],
+      contactJson['accountNumber'],
+    ),
+  );
 }
