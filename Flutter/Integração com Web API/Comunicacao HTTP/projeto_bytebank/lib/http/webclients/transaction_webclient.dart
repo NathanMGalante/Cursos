@@ -7,7 +7,7 @@ import '../web_client.dart';
 
 class TransactionWebClient {
   //final Uri _url = Uri.http('192.168.15.22:8080', 'transactions');//farm192.168.1.8
-  final Uri _url = Uri.http('192.168.1.8:8080', 'transactions');//casa
+  final Uri _url = Uri.http('192.168.1.8:8080', 'transactions'); //casa
 
   Future<List<Transaction>> findAll() async {
     final Response response = await client
@@ -21,12 +21,12 @@ class TransactionWebClient {
         .toList();
   }
 
-  Future<Transaction> save(Transaction transaction) async {
+  Future<Transaction> save(Transaction transaction, String password) async {
     final String transactionJson = jsonEncode(transaction.toJson());
 
     final Response response = await client.post(
       _url,
-      headers: {'Content-Type': 'application/json', 'password': '1000'},
+      headers: {'Content-Type': 'application/json', 'password': password},
       body: transactionJson,
     );
 

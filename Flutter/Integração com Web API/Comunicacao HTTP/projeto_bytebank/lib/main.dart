@@ -15,7 +15,7 @@ void main() {
 class ByteBankApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => MaterialApp(
-        home: TransactionAuthDialog(),
+        home: Dashboard(),
         theme: ThemeData(
           primaryColor: Colors.teal[900],
           accentColor: Colors.tealAccent[700],
