@@ -6,7 +6,8 @@ import 'package:projeto_bytebank/models/Transaction.dart';
 import '../web_client.dart';
 
 class TransactionWebClient {
-  final Uri _url = Uri.http('192.168.15.22:8080', 'transactions');
+  //final Uri _url = Uri.http('192.168.15.22:8080', 'transactions');//farm192.168.1.8
+  final Uri _url = Uri.http('192.168.1.8:8080', 'transactions');//casa
 
   Future<List<Transaction>> findAll() async {
     final Response response = await client
