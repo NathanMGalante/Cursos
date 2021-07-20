@@ -29,7 +29,14 @@ class TransactionWebClient {
       headers: {'Content-Type': 'application/json', 'password': password},
       body: transactionJson,
     );
-
+    switch (response.statusCode) {
+      case 400:
+        throw Exception('There was an error');
+        break;
+      case 401:
+        throw Exception('Authentication failed');
+        break;
+    }
     return Transaction.fromJson(jsonDecode(response.body));
   }
 }
