@@ -1,2 +1,6 @@
 /.metadata/
 Flutter/flutter codes.txt
+Flutter/Integração com Web API/server/database/main/db.lck
+Flutter/Integração com Web API/server/database/main/db.log
+*.log
+*.lck
