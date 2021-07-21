@@ -6,7 +6,8 @@ import 'package:projeto_bytebank/models/Transaction.dart';
 import '../web_client.dart';
 
 class TransactionWebClient {
-  final Uri _url = Uri.http('192.168.15.22:8080', 'transactions');//farm192.168.1.8
+  final Uri _url =
+      Uri.http('192.168.15.22:8080', 'transactions'); //farm192.168.1.8
   //final Uri _url = Uri.http('192.168.1.8:8080', 'transactions'); //casa
 
   Future<List<Transaction>> findAll() async {
@@ -29,14 +30,17 @@ class TransactionWebClient {
       headers: {'Content-Type': 'application/json', 'password': password},
       body: transactionJson,
     );
-    switch (response.statusCode) {
-      case 400:
-        throw Exception('There was an error');
-        break;
-      case 401:
-        throw Exception('Authentication failed');
-        break;
-    }
-    return Transaction.fromJson(jsonDecode(response.body));
+    if (response.statusCode == 200)
+      return Transaction.fromJson(jsonDecode(response.body));
+
+    _throwHttpError(response.statusCode);
   }
+
+  void _throwHttpError(int statusCode) =>
+      throw Exception(_statusCodeResponses[statusCode]);
+
+  static final Map<int, String> _statusCodeResponses = {
+    400: 'There was an error',
+    401: 'Authentication failed',
+  };
 }
