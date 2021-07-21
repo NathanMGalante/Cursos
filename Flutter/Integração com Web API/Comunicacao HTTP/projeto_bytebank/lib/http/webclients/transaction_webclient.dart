@@ -7,7 +7,7 @@ import '../web_client.dart';
 
 class TransactionWebClient {
   final Uri _url =
-      Uri.http('192.168.14.22:8080', 'transactions'); //farm192.168.1.8
+      Uri.http('192.168.15.22:8080', 'transactions'); //farm192.168.1.8
   //final Uri _url = Uri.http('192.168.1.8:8080', 'transactions'); //casa
 
   Future<List<Transaction>> findAll() async {
