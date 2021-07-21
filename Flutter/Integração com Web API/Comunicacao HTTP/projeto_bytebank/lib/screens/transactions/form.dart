@@ -93,7 +93,10 @@ class _TransactionFormState extends State<TransactionForm> {
         }
       },
     ).catchError((e) {
-      print(e);
+      showDialog(
+        context: context,
+        //builder: (contextDialog) {},
+      );
     });
   }
 }
