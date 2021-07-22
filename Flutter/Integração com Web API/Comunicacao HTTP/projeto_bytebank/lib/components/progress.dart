@@ -5,7 +5,8 @@ class Progress extends StatelessWidget {
   final double size;
   final bool visible;
 
-  Progress({this.message = 'Loading...', this.size = 16.0, this.visible = true});
+  Progress(
+      {this.message = 'Loading...', this.size = 16.0, this.visible = true});
 
   @override
   Widget build(BuildContext context) => Center(

@@ -22,6 +22,7 @@ class _TransactionFormState extends State<TransactionForm> {
   final TextEditingController _valueController = TextEditingController();
   final TransactionWebClient _webClient = TransactionWebClient();
   final String transactionId = Uuid().v4();
+  bool _sending = false;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +38,7 @@ class _TransactionFormState extends State<TransactionForm> {
             children: <Widget>[
               Progress(
                 message: 'Sending...',
+                visible: _sending,
               ),
               Text(
                 widget.contact.name,
@@ -97,7 +99,6 @@ class _TransactionFormState extends State<TransactionForm> {
       BuildContext context) async {
     Transaction transaction =
         await _send(transactionCreated, password, context);
-
     _showSuccessfulDialog(transaction, context);
   }
 
@@ -113,6 +114,8 @@ class _TransactionFormState extends State<TransactionForm> {
 
   Future<Transaction> _send(Transaction transactionCreated, String password,
       BuildContext context) async {
+    setState(() => _sending = true);
+
     final Transaction transaction = await _webClient
         .save(transactionCreated, password)
         .catchError((error) => _showFailureDialog(context, error.message),
@@ -123,6 +126,9 @@ class _TransactionFormState extends State<TransactionForm> {
             test: (error) => error is TimeoutException)
         .catchError(
           (error) => _showFailureDialog(context, 'Unknown error'),
+        )
+        .whenComplete(
+          () => setState(() => _sending = false),
         );
     return transaction;
   }
