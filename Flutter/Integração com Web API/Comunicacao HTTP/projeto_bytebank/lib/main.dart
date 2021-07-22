@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_bytebank/components/transaction_auth_dialog.dart';
 import 'package:projeto_bytebank/screens/dashboard.dart';
 
 import 'http/webclients/transaction_webclient.dart';

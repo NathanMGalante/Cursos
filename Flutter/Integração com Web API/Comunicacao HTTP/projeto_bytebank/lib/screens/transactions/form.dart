@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:projeto_bytebank/components/progress.dart';
 import 'package:projeto_bytebank/components/response_dialog.dart';
 import 'package:projeto_bytebank/components/transaction_auth_dialog.dart';
 import 'package:projeto_bytebank/http/webclients/transaction_webclient.dart';
@@ -34,6 +35,9 @@ class _TransactionFormState extends State<TransactionForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              Progress(
+                message: 'Sending...',
+              ),
               Text(
                 widget.contact.name,
                 style: TextStyle(

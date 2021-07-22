@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_bytebank/components/centered_message.dart';
-import 'package:projeto_bytebank/components/loading.dart';
+import 'package:projeto_bytebank/components/progress.dart';
 import 'package:projeto_bytebank/http/webclients/transaction_webclient.dart';
 import 'package:projeto_bytebank/models/Transaction.dart';
 
@@ -21,7 +21,7 @@ class TransactionsList extends StatelessWidget {
             case ConnectionState.none:
               break;
             case ConnectionState.waiting:
-              return Loading(
+              return Progress(
                 message: 'Carregando...',
               );
               break;

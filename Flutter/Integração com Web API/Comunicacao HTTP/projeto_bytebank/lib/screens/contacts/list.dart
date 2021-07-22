@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_bytebank/components/loading.dart';
+import 'package:projeto_bytebank/components/progress.dart';
 import 'package:projeto_bytebank/database/dao/contact_dao.dart';
 import 'package:projeto_bytebank/models/contact.dart';
 import 'package:projeto_bytebank/screens/contacts/form.dart';
@@ -26,7 +26,7 @@ class _ContactsListState extends State<ContactsList> {
               case ConnectionState.none:
                 break;
               case ConnectionState.waiting:
-                return Loading(
+                return Progress(
                   message: 'Carregando...',
                 );
                 break;
