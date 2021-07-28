@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <ul>
-      <li v-for="foto of fotos">
+  <div class="body">
+    <ul class="list">
+      <li
+        class="list-item"
+        v-for="foto of fotos"
+      >
         <img
           :src="foto.url"
           :alt="foto.title"
@@ -28,4 +31,16 @@ export default {
 </script>
 
 <style lang="scss">
+.body {
+  font-family: Helvetica, sans-serif;
+  width: 96%;
+  margin: 0 auto;
+}
+.list {
+  list-style: none;
+
+  &-item {
+    display: inline-block;
+  }
+}
 </style>
