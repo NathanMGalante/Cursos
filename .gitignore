@@ -11,3 +11,6 @@ Flutter/Integração com Web API/server/database/main/db.log
 *.log
 Flutter/Integração com Web API/server/database/main/db.properties
 *.properties
+Vue/yarn.lock
+Vue/node_modules/.yarn-integrity
+Vue/package-lock.json
