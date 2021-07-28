@@ -15,22 +15,15 @@
 export default {
   data() {
     return {
-      fotos: [
-        {
-          title: "imagem 01",
-          url: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
-        },
-        {
-          title: "imagem 02",
-          url: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
-        },
-        {
-          title: "imagem 03",
-          url: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
-        },
-      ],
-    }
-  }
+      fotos: [],
+    };
+  },
+  created() {
+    this.$http
+      .get("http://localhost:3000/v1/fotos")
+      .then((res) => res.json())
+      .then((fotos) => (this.fotos = fotos));
+  },
 };
 </script>
 
