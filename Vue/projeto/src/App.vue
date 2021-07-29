@@ -1,9 +1,15 @@
 <template>
   <div class="body">
+    <input
+      type="search"
+      class="filter"
+      placeholder="filtro com base no titulo"
+      v-model="filter"
+    >
     <ul class="list">
       <li
         class="list-item"
-        v-for="foto in fotos"
+        v-for="foto in photoWithFilter"
       >
         <painel
           class="painel"
@@ -25,6 +31,7 @@ export default {
   data() {
     return {
       fotos: [],
+      filter: "",
     };
   },
   components: {
@@ -36,10 +43,19 @@ export default {
       .then((res) => res.json())
       .then((fotos) => (this.fotos = fotos));
   },
+  computed: {
+    photoWithFilter() {
+      if (this.filter) {
+        let exp = new RegExp(this.filter.trim(), "i");
+        return this.fotos.filter((foto) => exp.test(foto.titulo));
+      }
+      return this.fotos;
+    },
+  },
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .body {
   font-family: Helvetica, sans-serif;
   width: 96%;
@@ -56,5 +72,9 @@ export default {
   img {
     width: 100%;
   }
+}
+.filter {
+  display: block;
+  width: 100%;
 }
 </style>

@@ -12,7 +12,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
 .painel {
   width: 200px;
   height: 100%;
