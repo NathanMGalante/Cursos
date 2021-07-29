@@ -1,13 +1,27 @@
 <template>
   <div class="painel">
-    <h2 class="painel-title">{{ title }}</h2>
-    <slot class="painel-contents">
-    </slot>
+    <h2
+      class="painel-title"
+      @dblclick="visible = !visible"
+    >{{ title }}</h2>
+    <transition class="painel-fade">
+      <div
+        class="painel-contents"
+        v-show="visible"
+      >
+        <slot></slot>
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
 export default {
+  data() {
+    return {
+      visible: true,
+    };
+  },
   props: ["title"],
 };
 </script>
@@ -30,6 +44,14 @@ export default {
     background: lightblue;
     margin: 0 0 15px 0;
     text-transform: uppercase;
+    user-select: none;
   }
+
+	&-fade{
+		opacity: 0;
+		transition: {
+			opacity: 1;
+		};
+	}
 }
 </style>
